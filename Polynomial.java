@@ -18,15 +18,17 @@ public class Polynomial{
 	public Polynomial add(Polynomial poly){
 		
 		int length = Math.max(this.coefficient.length, poly.coefficient.length);
-		double[] new_polynomial = new double[length];
+		
+		Polynomial new_polynomial = new Polynomial();
+		new_polynomial.coefficient = new double[length];
+
 		for (int i = 0; i < this.coefficient.length; i++){
-			new_polynomial[i] = this.coefficient[i];
+			new_polynomial.coefficient[i] = this.coefficient[i];
 		}
 		for (int i = 0; i < poly.coefficient.length; i++){
-			 new_polynomial[i] += poly.coefficient[i];
+			 new_polynomial.coefficient[i] += poly.coefficient[i];
 		}
-		this.coefficient = new_polynomial;
-		return this;
+		return new_polynomial;
 	}
 
 	public double evaluate(double number){
