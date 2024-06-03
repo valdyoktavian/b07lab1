@@ -14,50 +14,68 @@ public class Polynomial{
 		this.exponents = new int [0];	
 	}
 
+	public Polynomial(double [] coefficient){
+		this.coefficient = coefficient;
+		int [] exponents = new int[coefficient.length];
+		for(int i = 0; i < coefficient.length; i++){
+			exponents[i] = i;
+		}
+		this.exponents = exponents;
+	}
+
 	public Polynomial(double [] coefficient, int [] exponent){
 		this.coefficient = coefficient;
 		this.exponents = exponent;
 	}
 
 	public Polynomial(File file) throws FileNotFoundException{
-		Scanner line = new Scanner(file);
-		String data = line.nextLine();
-		if(data.toCharArray()[0] != '-'){
-			data = '+' + data;
-		}
-		 
-		String[] split = data.split("[-+]");
-		double [] coefficient = new double [split.length-1];
-		int [] exponents = new int [split.length-1];
 
-		String[] signs = new String[split.length-1];
 		
-		int index = 0;
-		for (char c : data.toCharArray()){
-			if(c == '-'){
-				signs[index] = "-";
-				index++;
-			}
-			else if(c == '+'){
-				signs[index] = "+";
-				index++;
-			}
-		}
+		Scanner line = new Scanner(file);
 
-		for(int i = 1; i < split.length; i++){
-			String[] split_item = split[i].split("[x]");
-			
-			if(split_item.length == 1){
-				coefficient[i-1] = Double.parseDouble(signs[i-1] + split_item[0]);
-				exponents[i-1] = 0;
-			} 
-			else{
-				coefficient[i-1] = Double.parseDouble(signs[i-1] + split_item[0]);
-				exponents[i-1] = Integer.parseInt(split_item[1]);
+		if(!line.hasNextLine()){
+			this.coefficient = new double[0];
+			this.exponents = new int[0];
+		}
+		else {
+			String data = line.nextLine();
+			if(data.toCharArray()[0] != '-'){
+				data = '+' + data;
 			}
-		}			
-		this.coefficient = coefficient;
-		this.exponents = exponents;
+				
+			String[] split = data.split("[-+]");
+			double [] coefficient = new double [split.length-1];
+			int [] exponents = new int [split.length-1];
+
+			String[] signs = new String[split.length-1];
+			
+			int index = 0;
+			for (char c : data.toCharArray()){
+				if(c == '-'){
+					signs[index] = "-";
+					index++;
+				}
+				else if(c == '+'){
+					signs[index] = "+";
+					index++;
+				}
+			}
+
+			for(int i = 1; i < split.length; i++){
+				String[] split_item = split[i].split("[x]");
+				
+				if(split_item.length == 1){
+					coefficient[i-1] = Double.parseDouble(signs[i-1] + split_item[0]);
+					exponents[i-1] = 0;
+				} 
+				else{
+					coefficient[i-1] = Double.parseDouble(signs[i-1] + split_item[0]);
+					exponents[i-1] = Integer.parseInt(split_item[1]);
+				}
+			}			
+			this.coefficient = coefficient;
+			this.exponents = exponents;
+		}
 		line.close();
 	}
 	
