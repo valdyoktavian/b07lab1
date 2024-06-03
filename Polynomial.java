@@ -42,7 +42,7 @@ public class Polynomial{
 			if(data.toCharArray()[0] != '-'){
 				data = '+' + data;
 			}
-				
+
 			String[] split = data.split("[-+]");
 			double [] coefficient = new double [split.length-1];
 			int [] exponents = new int [split.length-1];
@@ -85,11 +85,10 @@ public class Polynomial{
 			if(this.coefficient[i] > 0){
 				output = output + "+" + this.coefficient[i];
 			}
-			else{
+			else if(this.coefficient[i] != 0){
 				output = output + this.coefficient[i];
 			}
-
-			if(this.exponents[i] != 0){
+			if(this.exponents[i] != 0 && this.coefficient[i] != 0){
 				output = output + "x" + this.exponents[i];
 			}		
 		}
